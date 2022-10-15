@@ -1,9 +1,11 @@
 package agh.ics.oop;
+
+import java.util.Arrays;
+
 import static java.lang.System.out;
 
 public class World {
     public static void run (Direction[] directions ) {
-
         for (Direction move: directions) {
             String message = switch (move) {
                 case FORWARD -> "zwierzak idzie do przodu";
@@ -14,24 +16,29 @@ public class World {
             out.println(message);
         }
     }
+
+    public static Direction[] convert (String[] args) {
+        Direction[] moves = new Direction[args.length];
+        int k=0;
+        for (String arg : args) {
+            if (!(arg.equals("f") || arg.equals("b") || arg.equals("r") || arg.equals("l"))) {
+                continue;
+            }
+            switch (arg) {
+                case "f" -> moves[k] = Direction.FORWARD;
+                case "b" -> moves[k] = Direction.BACKWARD;
+                case "r" -> moves[k] = Direction.RIGHT;
+                case "l" -> moves[k] = Direction.LEFT;
+            }
+            k += 1;
+        }
+        return Arrays.copyOfRange(moves, 0, k);
+    }
+
     public static void main(String[] args) {
         out.println("system wystartowal");
-        Direction[] moves = new Direction[args.length];
-        for (int i=0; i<args.length; i++) {
-            if (!(args[i].equals("f") || args[i].equals("b") || args[i].equals("r") || args[i].equals("l"))) {
-                out.println("niepoprawny ruch");
-                out.println("system zakonczyl dzialanie");
-                return;
-            }
-            moves[i] = switch (args[i]) {
-                case "f" -> Direction.FORWARD;
-                case "b" -> Direction.BACKWARD;
-                case "r" -> Direction.RIGHT;
-                case "l" -> Direction.LEFT;
-                default -> Direction.FORWARD;
-            };
-
-        }
+        Direction[] moves = convert(args);
+        out.println(Arrays.toString(moves));
         run(moves);
         out.println("system zakonczyl dzialanie");
     }
