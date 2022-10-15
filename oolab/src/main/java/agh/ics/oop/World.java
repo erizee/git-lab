@@ -38,7 +38,6 @@ public class World {
     public static void main(String[] args) {
         out.println("system wystartowal");
         Direction[] moves = convert(args);
-        out.println(Arrays.toString(moves));
         run(moves);
         out.println("system zakonczyl dzialanie");
     }
