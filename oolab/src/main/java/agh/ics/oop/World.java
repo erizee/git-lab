@@ -40,5 +40,12 @@ public class World {
         Direction[] moves = convert(args);
         run(moves);
         out.println("system zakonczyl dzialanie");
+        Vector2d position1 = new Vector2d(1,2);
+        out.println(position1);
+        Vector2d position2 = new Vector2d(-2,1);
+        out.println(position2);
+        out.println(position1.add(position2));
+        out.println(MapDirection.EAST.toUnitVector());
+        out.println(MapDirection.WEST.previous());
     }
 }
