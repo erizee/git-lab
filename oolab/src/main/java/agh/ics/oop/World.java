@@ -37,15 +37,24 @@ public class World {
 
     public static void main(String[] args) {
         out.println("system wystartowal");
-        Direction[] moves = convert(args);
-        run(moves);
+//        Direction[] moves = convert(args);
+//        run(moves);
+
+        Animal dog = new Animal();
+        out.println(dog);
+        dog.move(MoveDirection.RIGHT);
+        dog.move(MoveDirection.FORWARD);
+        dog.move(MoveDirection.FORWARD);
+        dog.move(MoveDirection.FORWARD);
+        out.println(dog);
+        Animal cat  = new Animal();
+        out.println(cat);
+        MoveDirection[] catMoves = (new OptionParser()).parse(args);
+        for (MoveDirection catMove : catMoves) {
+            cat.move(catMove);
+        }
+        out.println(cat);
         out.println("system zakonczyl dzialanie");
-        Vector2d position1 = new Vector2d(1,2);
-        out.println(position1);
-        Vector2d position2 = new Vector2d(-2,1);
-        out.println(position2);
-        out.println(position1.add(position2));
-        out.println(MapDirection.EAST.toUnitVector());
-        out.println(MapDirection.WEST.previous());
+
     }
 }
