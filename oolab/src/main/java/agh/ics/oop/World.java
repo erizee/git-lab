@@ -40,20 +40,26 @@ public class World {
 //        Direction[] moves = convert(args);
 //        run(moves);
 
-        Animal dog = new Animal();
-        out.println(dog);
-        dog.move(MoveDirection.RIGHT);
-        dog.move(MoveDirection.FORWARD);
-        dog.move(MoveDirection.FORWARD);
-        dog.move(MoveDirection.FORWARD);
-        out.println(dog);
-        Animal cat  = new Animal();
-        out.println(cat);
-        MoveDirection[] catMoves = (new OptionParser()).parse(args);
-        for (MoveDirection catMove : catMoves) {
-            cat.move(catMove);
-        }
-        out.println(cat);
+//        Animal dog = new Animal();
+//        out.println(dog);
+//        dog.move(MoveDirection.RIGHT);
+//        dog.move(MoveDirection.FORWARD);
+//        dog.move(MoveDirection.FORWARD);
+//        dog.move(MoveDirection.FORWARD);
+//        out.println(dog);
+//        Animal cat  = new Animal();
+//        out.println(cat);
+//        MoveDirection[] catMoves = (new OptionParser()).parse(args);
+//        for (MoveDirection catMove : catMoves) {
+//            cat.move(catMove);
+//        }
+//        out.println(cat);
+
+        MoveDirection[] directions = new OptionParser().parse(args);
+        IWorldMap map = new RectangularMap(10, 5);
+        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
+        IEngine engine = new SimulationEngine(directions, map, positions);
+        engine.run();
         out.println("system zakonczyl dzialanie");
 
     }

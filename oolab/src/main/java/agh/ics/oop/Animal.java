@@ -4,8 +4,21 @@ package agh.ics.oop;
 
 
 public class Animal {
-    private MapDirection orient = MapDirection.NORTH;
-    private Vector2d position = new Vector2d(2,2);
+    private MapDirection orient;
+    private Vector2d position;
+    public IWorldMap map;
+
+    public Animal(IWorldMap map) {
+        orient = MapDirection.NORTH;
+        position = new Vector2d(2, 2);
+        this.map = map;
+    }
+
+    public Animal(IWorldMap map, Vector2d initialPosition) {
+        orient = MapDirection.NORTH;
+        position = new Vector2d(initialPosition.x, initialPosition.y);
+        this.map = map;
+    }
 
     public Vector2d getPosition() {
         return position;
@@ -15,12 +28,17 @@ public class Animal {
         return orient;
     }
 
-
-    private final Vector2d borderVectorUpper = new Vector2d(4, 4);
-    private final Vector2d borderVectorLower = new Vector2d(0, 0);
+    public boolean isAt(Vector2d position2) {
+        return position.equals(position2);
+    }
 
     public String toString() {
-        return String.format("(%d,%d), %s", position.x, position.y, orient.toString());
+        return switch (orient) {
+            case NORTH -> "N";
+            case SOUTH -> "S";
+            case WEST -> "W";
+            case EAST -> "E";
+        };
     }
 
     public void move(MoveDirection direction) {
@@ -28,23 +46,15 @@ public class Animal {
             case RIGHT -> orient = orient.next();
             case LEFT -> orient = orient.previous();
             case FORWARD -> {
-                Vector2d temp1 = new Vector2d(position.x, position.y);
-                temp1 = temp1.add(orient.toUnitVector());
-                if (temp1.follows(borderVectorLower) && temp1.precedes(borderVectorUpper)) {
-                    position = temp1;
+                if (map.canMoveTo(position.add(orient.toUnitVector()))) {
+                    position = position.add(orient.toUnitVector());
                 }
             }
             case BACKWARD -> {
-                Vector2d temp2 = new Vector2d(position.x, position.y);
-                temp2 = temp2.subtract(orient.toUnitVector());
-                if (temp2.follows(borderVectorLower) && temp2.precedes(borderVectorUpper)) {
-                    position = temp2;
+                if (map.canMoveTo(position.subtract(orient.toUnitVector()))) {
+                    position = position.subtract(orient.toUnitVector());
                 }
             }
         }
-    }
-
-    public boolean isAt(Vector2d position2) {
-        return position.equals(position2);
     }
 }

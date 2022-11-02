@@ -3,46 +3,33 @@ package agh.ics.oop;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 public class IntegrationTest {
-
     @Test
-    public void test1() {
-        Animal testAnimal = new Animal();
-        testAnimal.move(MoveDirection.RIGHT);
-        assertEquals(testAnimal.getOrient(), MapDirection.EAST);
-        testAnimal.move(MoveDirection.LEFT);
-        assertEquals(testAnimal.getOrient(), MapDirection.NORTH);
+    public void firstTest(){
+        String[] args = {"f", "b", "r", "l"};
+        MoveDirection[] directions = new OptionParser().parse(args);
+        RectangularMap map = new RectangularMap(10, 5);
+        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
+        IEngine engine = new SimulationEngine(directions, map, positions);
+        engine.run();
+        assertEquals(map.animals.get(0).getPosition(), new Vector2d(2,3));
+        assertEquals(map.animals.get(0).getOrient(), MapDirection.EAST);
+        assertEquals(map.animals.get(1).getPosition(), new Vector2d(3,3));
+        assertEquals(map.animals.get(1).getOrient(), MapDirection.WEST);
     }
 
     @Test
-    public void test2() {
-        Animal testAnimal = new Animal();
-        testAnimal.move(MoveDirection.RIGHT);
-        assertEquals(testAnimal.getOrient(), MapDirection.EAST);
-        testAnimal.move(MoveDirection.LEFT);
-        assertEquals(testAnimal.getOrient(), MapDirection.NORTH);
-        MoveDirection[] moves = {MoveDirection.FORWARD, MoveDirection.RIGHT, MoveDirection.FORWARD, MoveDirection.RIGHT, MoveDirection.RIGHT, MoveDirection.BACKWARD};
-        String[] movesString = {"f", "right", "forward", "r", "right", "b"};
-        assertArrayEquals((new OptionParser()).parse(movesString), moves);
-    }
-
-    @Test
-    public void test3() {
-        Animal testAnimal = new Animal();
-        testAnimal.move(MoveDirection.RIGHT);
-        assertEquals(testAnimal.getOrient(), MapDirection.EAST);
-        testAnimal.move(MoveDirection.LEFT);
-        assertEquals(testAnimal.getOrient(), MapDirection.NORTH);
-        MoveDirection[] moves = {MoveDirection.FORWARD, MoveDirection.RIGHT, MoveDirection.FORWARD, MoveDirection.RIGHT, MoveDirection.RIGHT, MoveDirection.BACKWARD};
-        String[] movesString = {"f", "right", "forward", "r", "right", "b"};
-        assertArrayEquals((new OptionParser()).parse(movesString), moves);
-        assertEquals((new Vector2d(2, 2)), testAnimal.getPosition());
-        for (MoveDirection move : moves) {
-            testAnimal.move(move);
-        }
-        assertEquals((new Vector2d(4, 3)), testAnimal.getPosition());
-        assertEquals(testAnimal.getOrient(), MapDirection.WEST);
+    public void secondTest(){
+        String[] args = {"f", "b", "r", "l", "f", "f", "r", "r", "f", "f", "f", "f", "f", "f", "f", "f"};
+        MoveDirection[] directions = new OptionParser().parse(args);
+        RectangularMap map = new RectangularMap(10, 5);
+        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
+        IEngine engine = new SimulationEngine(directions, map, positions);
+        engine.run();
+        assertEquals(map.animals.get(0).getPosition(), new Vector2d(2,0));
+        assertEquals(map.animals.get(0).getOrient(), MapDirection.SOUTH);
+        assertEquals(map.animals.get(1).getPosition(), new Vector2d(3,5));
+        assertEquals(map.animals.get(1).getOrient(), MapDirection.NORTH);
     }
 }
