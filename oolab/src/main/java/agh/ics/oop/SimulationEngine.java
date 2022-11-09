@@ -3,11 +3,11 @@ package agh.ics.oop;
 public class SimulationEngine implements IEngine{
 
     public MoveDirection[] directions;
-    public RectangularMap map;
+    public AbstractWorldMap map;
 
-    public SimulationEngine(MoveDirection[] directions, IWorldMap map, Vector2d[] positions) {
+    public SimulationEngine(MoveDirection[] directions, AbstractWorldMap map, Vector2d[] positions) {
         this.directions = directions;
-        this.map = (RectangularMap) map;
+        this.map = map;
         for (Vector2d position: positions) {
             map.place(new Animal(map, position));
         }
