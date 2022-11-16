@@ -1,5 +1,7 @@
 package agh.ics.oop;
 
+import java.util.ArrayList;
+
 public class SimulationEngine implements IEngine{
 
     public MoveDirection[] directions;
@@ -9,19 +11,21 @@ public class SimulationEngine implements IEngine{
         this.directions = directions;
         this.map = map;
         for (Vector2d position: positions) {
-            map.place(new Animal(map, position));
+            Animal animal = new Animal(map, position);
+            map.place(animal);
+            animal.addObserver(map);
         }
     }
 
     public void run() {
-        int animalNumber = map.animals.size();
+        int animalNumber = map.animalsList.size();
 //        System.out.println("START");
 //        System.out.println(map.toString());
 
         for (int i=0; i<directions.length; i++) {
 //            System.out.printf("STEP %d of animal %d\n", i, i%animalNumber);
 //            System.out.println(directions[i]);
-            Animal toMoveAnimal = map.animals.get(i%animalNumber);
+            Animal toMoveAnimal = map.animalsList.get(i % animalNumber);
             switch (directions[i]) {
                 case FORWARD -> {
                     Vector2d newPosition1 = toMoveAnimal.getPosition().add(toMoveAnimal.getOrient().toUnitVector());

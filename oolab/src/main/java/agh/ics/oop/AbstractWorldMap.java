@@ -1,15 +1,23 @@
 package agh.ics.oop;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-abstract class AbstractWorldMap implements IWorldMap {
+abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
     protected int width;
     protected int height;
-    protected ArrayList<Animal> animals = new ArrayList<>();
+    protected Map<Vector2d, Animal> animals = new HashMap<>();
+    protected ArrayList<Animal> animalsList = new ArrayList<>();
 
     public AbstractWorldMap(int width, int height) {
         this.width = width;
         this.height = height;
+    }
+
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
+        Animal animal = animals.remove(oldPosition);
+        animals.put(newPosition, animal);
     }
 
     public String toString() {
@@ -25,7 +33,8 @@ abstract class AbstractWorldMap implements IWorldMap {
 
     public boolean place(Animal animal) {
         if (canMoveTo(animal.getPosition()) && (!isOccupied(animal.getPosition()) || objectAt(animal.getPosition()) instanceof Grass)) {
-            animals.add(animal);
+            animals.put(animal.getPosition(), animal);
+            animalsList.add(animal);
             return true;
         }
         return false;

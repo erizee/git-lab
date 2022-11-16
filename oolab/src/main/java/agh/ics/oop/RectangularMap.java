@@ -20,7 +20,7 @@ public class RectangularMap extends AbstractWorldMap {
 
     @Override
     public boolean isOccupied(Vector2d position) {
-        for (Animal animal : animals) {
+        for (Animal animal : animals.values()) {
             if (position.equals(animal.getPosition())) {
                 return true;
             }
@@ -30,10 +30,8 @@ public class RectangularMap extends AbstractWorldMap {
 
     @Override
     public Object objectAt(Vector2d position) {
-        for (Animal animal: animals) {
-            if (position.equals(animal.getPosition())) {
-                return animal;
-            }
+        if (animals.containsKey(position)) {
+            return animals.get(position);
         }
         return null;
     }

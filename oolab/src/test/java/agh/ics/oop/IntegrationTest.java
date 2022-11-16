@@ -13,10 +13,10 @@ public class IntegrationTest {
         Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
         IEngine engine = new SimulationEngine(directions, map, positions);
         engine.run();
-        assertEquals(map.animals.get(0).getPosition(), new Vector2d(2,3));
-        assertEquals(map.animals.get(0).getOrient(), MapDirection.EAST);
-        assertEquals(map.animals.get(1).getPosition(), new Vector2d(3,3));
-        assertEquals(map.animals.get(1).getOrient(), MapDirection.WEST);
+        assertEquals(map.animalsList.get(0).getPosition(), new Vector2d(2,3));
+        assertEquals(map.animalsList.get(0).getOrient(), MapDirection.EAST);
+        assertEquals(map.animalsList.get(1).getPosition(), new Vector2d(3,3));
+        assertEquals(map.animalsList.get(1).getOrient(), MapDirection.WEST);
     }
 
     @Test
@@ -27,10 +27,10 @@ public class IntegrationTest {
         Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
         IEngine engine = new SimulationEngine(directions, map, positions);
         engine.run();
-        assertEquals(map.animals.get(0).getPosition(), new Vector2d(2,0));
-        assertEquals(map.animals.get(0).getOrient(), MapDirection.SOUTH);
-        assertEquals(map.animals.get(1).getPosition(), new Vector2d(3,5));
-        assertEquals(map.animals.get(1).getOrient(), MapDirection.NORTH);
+        assertEquals(map.animalsList.get(0).getPosition(), new Vector2d(2,0));
+        assertEquals(map.animalsList.get(0).getOrient(), MapDirection.SOUTH);
+        assertEquals(map.animalsList.get(1).getPosition(), new Vector2d(3,5));
+        assertEquals(map.animalsList.get(1).getOrient(), MapDirection.NORTH);
     }
 
     @Test
@@ -41,9 +41,9 @@ public class IntegrationTest {
         Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
         IEngine engine = new SimulationEngine(directions, map, positions);
         engine.run();
-        assertEquals(map.animals.get(0).getPosition(), new Vector2d(2,0));
-        assertEquals(map.animals.get(0).getOrient(), MapDirection.SOUTH);
-        assertEquals(map.animals.get(1).getPosition(), new Vector2d(3,7));
-        assertEquals(map.animals.get(1).getOrient(), MapDirection.NORTH);
+        assertEquals(map.animalsList.get(0).getPosition(), new Vector2d(2,0));
+        assertEquals(map.animalsList.get(0).getOrient(), MapDirection.SOUTH);
+        assertEquals(map.animalsList.get(1).getPosition(), new Vector2d(3,7));
+        assertEquals(map.animalsList.get(1).getOrient(), MapDirection.NORTH);
     }
 }
