@@ -12,11 +12,6 @@ public class RectangularMap extends AbstractWorldMap {
         return (new MapVisualizer(this)).draw(new Vector2d(0, 0), new Vector2d(width, height));
     }
 
-    @Override
-    public Vector2d[] getMapBounds() {
-        return new Vector2d[]{new Vector2d(0, 0), new Vector2d(width, height)};
-    }
-
 
     @Override
     public boolean isOccupied(Vector2d position) {

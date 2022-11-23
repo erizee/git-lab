@@ -19,12 +19,8 @@ public class SimulationEngine implements IEngine{
 
     public void run() {
         int animalNumber = map.animalsList.size();
-//        System.out.println("START");
-//        System.out.println(map.toString());
 
         for (int i=0; i<directions.length; i++) {
-//            System.out.printf("STEP %d of animal %d\n", i, i%animalNumber);
-//            System.out.println(directions[i]);
             Animal toMoveAnimal = map.animalsList.get(i % animalNumber);
             switch (directions[i]) {
                 case FORWARD -> {
@@ -41,7 +37,6 @@ public class SimulationEngine implements IEngine{
                 }
                 default -> toMoveAnimal.move(directions[i]);
             }
-//            System.out.println(map.toString());
         }
         System.out.println(map.toString());
     }
