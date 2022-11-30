@@ -2,7 +2,7 @@ package agh.ics.oop;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class IntegrationTest {
@@ -46,5 +46,24 @@ public class IntegrationTest {
         assertEquals(map.animalsList.get(0).getOrient(), MapDirection.SOUTH);
         assertEquals(map.animalsList.get(1).getPosition(), new Vector2d(3,7));
         assertEquals(map.animalsList.get(1).getOrient(), MapDirection.NORTH);
+    }
+
+    @Test
+    public void parserTest() {
+        MoveDirection[] moves = {MoveDirection.FORWARD, MoveDirection.RIGHT, MoveDirection.FORWARD, MoveDirection.RIGHT, MoveDirection.RIGHT, MoveDirection.BACKWARD};
+        String[] movesString = {"f", "right", "forward", "x", "r", "right", "b"};
+        assertThrows(IllegalArgumentException.class, () -> (new OptionParser()).parse(movesString));
+
+        String[] movesString2 = {"f", "right", "forward", "r", "right", "b"};
+        assertArrayEquals((new OptionParser()).parse(movesString2), moves);
+    }
+
+    @Test
+    public void placeTest() {
+        String[] args = {"f", "f"};
+        MoveDirection[] directions = new OptionParser().parse(args);
+        GrassField map = new GrassField(10);
+        map.place(new Animal(map, new Vector2d(2, 2)));
+        assertThrows(IllegalArgumentException.class, () -> map.place(new Animal(map, new Vector2d(2, 2))));
     }
 }
